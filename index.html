@@ -18,7 +18,7 @@ body {
   background: #000;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .pantalla {
@@ -34,8 +34,12 @@ body {
   text-align: center;
 }
 
-#benvinguda {
-  display: none;
+/* =====================
+   PANTALLA INICIAL
+===================== */
+
+#entrada {
+  display: flex;
 }
 
 h1 {
@@ -80,10 +84,82 @@ button:active {
   }
 }
 
+/* =====================
+   PANTALLA DE CONTROL
+===================== */
 
-/* -------------------------
+#control {
+  display: none;
+  justify-content: flex-start;
+  padding-top: 35px;
+}
+
+.titol-control {
+  font-size: 42px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.comptador {
+  font-size: 18px;
+  opacity: .7;
+  margin-bottom: 25px;
+}
+
+.llista {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.convidat {
+  width: 100%;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: #181818;
+  color: white;
+  border: 2px solid #333;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  animation: none;
+  box-shadow: none;
+}
+
+.convidat:hover {
+  background: #252525;
+}
+
+.convidat.validat {
+  background: #173d22;
+  border-color: #35d66f;
+  color: #8cffae;
+  cursor: default;
+}
+
+.convidat.validat::after {
+  content: "  ✓ DINS";
+  font-size: 14px;
+}
+
+.boto-tornar {
+  margin-top: 25px;
+  background: #333;
+  color: white;
+  font-size: 16px;
+  padding: 14px 25px;
+  animation: none;
+}
+
+/* =====================
    BENVINGUDA
-------------------------- */
+===================== */
+
+#benvinguda {
+  display: none;
+}
 
 .gran {
   font-size: clamp(50px, 15vw, 100px);
@@ -91,6 +167,12 @@ button:active {
   line-height: .85;
   margin-bottom: 20px;
   animation: entrada 0.6s ease-out;
+}
+
+.nom-benvinguda {
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 15px;
 }
 
 @keyframes entrada {
@@ -109,10 +191,9 @@ button:active {
   }
 }
 
-
-/* -------------------------
-   ANIMACIÓ TIPUS GIF
-------------------------- */
+/* =====================
+   ANIMACIÓ
+===================== */
 
 .gif-festa {
   width: 190px;
@@ -168,10 +249,9 @@ button:active {
   }
 }
 
-
-/* -------------------------
+/* =====================
    CONFETI
-------------------------- */
+===================== */
 
 #confeti {
   position: fixed;
@@ -195,10 +275,9 @@ button:active {
   }
 }
 
-
-/* -------------------------
+/* =====================
    TEXT FINAL
-------------------------- */
+===================== */
 
 .final {
   font-size: 22px;
@@ -234,13 +313,37 @@ button:active {
     Has trobat l'entrada secreta.
   </div>
 
-  <button onclick="entrar()">
-    🎟️ ENTRAR A LA FESTA
+  <button onclick="mostrarControl()">
+    🎟️ VALIDAR ENTRADA
   </button>
 
   <div class="petit">
     🔊 Puja el volum
   </div>
+
+</div>
+
+
+
+<!-- =====================
+     CONTROL D'ENTRADES
+===================== -->
+
+<div id="control" class="pantalla">
+
+  <div class="titol-control">
+    🎟️ ENTRADES
+  </div>
+
+  <div class="comptador" id="comptador">
+    0 entrades validades
+  </div>
+
+  <div class="llista" id="llista"></div>
+
+  <button class="boto-tornar" onclick="tornarInici()">
+    ← Tornar
+  </button>
 
 </div>
 
@@ -266,17 +369,17 @@ button:active {
 
   </div>
 
-
   <div class="gran">
     BENVINGUT!
   </div>
 
+  <div class="nom-benvinguda" id="nomBenvinguda">
+  </div>
 
   <div class="final">
     🎉 Ja ets dins de la<br>
     <strong>FESTA 40</strong>
   </div>
-
 
   <div class="petit">
     Ensenya aquesta pantalla en Nord 😎
@@ -302,25 +405,149 @@ button:active {
 
 <script>
 
-function entrar() {
+/* =================================================
+   LLISTA DE CONVIDATS
 
-  /* Canviar pantalla */
+   CANVIA AQUESTS NOMS PELS NOMS REALS
+================================================= */
+
+const convidats = [
+  "Marc",
+  "Laia",
+  "Pol",
+  "Júlia",
+  "Pere",
+  "Anna",
+  "Joan",
+  "Maria",
+  "Carles",
+  "Laura"
+];
+
+
+/* =================================================
+   ENTRADES JA VALIDES
+================================================= */
+
+let validades =
+  JSON.parse(localStorage.getItem("entradesFesta40")) || [];
+
+
+/* =================================================
+   MOSTRAR CONTROL
+================================================= */
+
+function mostrarControl() {
 
   document.getElementById("entrada").style.display = "none";
+
+  document.getElementById("control").style.display = "flex";
+
+  mostrarConvidats();
+
+}
+
+
+/* =================================================
+   MOSTRAR LLISTA
+================================================= */
+
+function mostrarConvidats() {
+
+  const llista =
+    document.getElementById("llista");
+
+  llista.innerHTML = "";
+
+  convidats.forEach(function(nom) {
+
+    const boto =
+      document.createElement("button");
+
+    boto.className = "convidat";
+
+    boto.innerText = nom;
+
+    if (validades.includes(nom)) {
+
+      boto.classList.add("validat");
+
+      boto.disabled = true;
+
+    } else {
+
+      boto.onclick = function() {
+        validarEntrada(nom);
+      };
+
+    }
+
+    llista.appendChild(boto);
+
+  });
+
+
+  actualitzarComptador();
+
+}
+
+
+/* =================================================
+   VALIDAR ENTRADA
+================================================= */
+
+function validarEntrada(nom) {
+
+  if (validades.includes(nom)) {
+    return;
+  }
+
+
+  validades.push(nom);
+
+
+  localStorage.setItem(
+    "entradesFesta40",
+    JSON.stringify(validades)
+  );
+
+
+  mostrarBenvinguda(nom);
+
+}
+
+
+/* =================================================
+   BENVINGUDA
+================================================= */
+
+function mostrarBenvinguda(nom) {
+
+  document.getElementById("control").style.display = "none";
 
   document.getElementById("benvinguda").style.display = "flex";
 
 
+  document.getElementById("nomBenvinguda").innerText =
+    nom;
+
+
   /* Música */
 
-  const musica = document.getElementById("musica");
+  const musica =
+    document.getElementById("musica");
 
   musica.volume = 1;
 
   musica.currentTime = 0;
 
   musica.play().catch(function(error) {
-    console.log("El navegador ha bloquejat la música:", error);
+
+    console.log(
+      "El navegador ha bloquejat la música:",
+      error
+    );
+
   });
 
 
@@ -328,18 +555,66 @@ function entrar() {
 
   crearConfeti();
 
+
+  /* Tornar automàticament a la llista */
+
+  setTimeout(function() {
+
+    document.getElementById("benvinguda").style.display = "none";
+
+    document.getElementById("control").style.display = "flex";
+
+    mostrarConvidats();
+
+  }, 7000);
+
 }
 
 
+/* =================================================
+   COMPTADOR
+================================================= */
 
-/* -------------------------
-   CREAR CONFETI
-------------------------- */
+function actualitzarComptador() {
+
+  const total =
+    convidats.length;
+
+  const numero =
+    validades.length;
+
+  document.getElementById("comptador").innerText =
+    numero + " de " + total +
+    " entrades validades";
+
+}
+
+
+/* =================================================
+   TORNAR
+================================================= */
+
+function tornarInici() {
+
+  document.getElementById("control").style.display = "none";
+
+  document.getElementById("entrada").style.display = "flex";
+
+}
+
+
+/* =================================================
+   CONFETI
+================================================= */
 
 function crearConfeti() {
 
   const contenidor =
     document.getElementById("confeti");
+
+
+  contenidor.innerHTML = "";
+
 
   const simbols = [
     "🎉",
@@ -358,7 +633,9 @@ function crearConfeti() {
     const tros =
       document.createElement("div");
 
+
     tros.className = "confeti";
+
 
     tros.innerHTML =
       simbols[
@@ -390,4 +667,4 @@ function crearConfeti() {
 
 
 </body>
-</html>
+</html>l
