@@ -1,251 +1,393 @@
 <!DOCTYPE html>
 <html lang="ca">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>FESTA 40</title>
+<title>FESTA 40</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: #000;
-      color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      overflow: hidden;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .pantalla {
-      width: 100%;
-      max-width: 600px;
-      min-height: 100vh;
-      padding: 35px 25px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #000;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
 
-    h1 {
-      font-size: clamp(55px, 18vw, 110px);
-      line-height: 0.85;
-      margin: 0 0 25px;
-      font-weight: 900;
-      letter-spacing: -5px;
-    }
+.pantalla {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 650px;
+  margin: auto;
+  padding: 30px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-    h2 {
-      font-size: 28px;
-      margin: 0 0 15px;
-    }
+#benvinguda {
+  display: none;
+}
 
-    p {
-      font-size: 19px;
-      line-height: 1.4;
-      margin: 8px 0;
-    }
+h1 {
+  font-size: clamp(60px, 20vw, 120px);
+  line-height: .8;
+  margin: 0 0 30px;
+  font-weight: 900;
+  letter-spacing: -6px;
+}
 
-    .subtitol {
-      font-size: 18px;
-      opacity: 0.75;
-      margin-bottom: 40px;
-    }
+.subtitol {
+  font-size: 20px;
+  margin-bottom: 35px;
+}
 
-    button {
-      border: 3px solid #fff;
-      background: #fff;
-      color: #000;
-      font-size: 22px;
-      font-weight: 900;
-      padding: 18px 35px;
-      border-radius: 50px;
-      cursor: pointer;
-      margin-top: 25px;
-      transition: transform 0.15s;
-    }
+button {
+  border: 0;
+  background: white;
+  color: black;
+  font-size: 21px;
+  font-weight: 900;
+  padding: 19px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(255,255,255,.5);
+  animation: pulsar 1.4s infinite;
+}
 
-    button:active {
-      transform: scale(0.94);
-    }
+button:active {
+  transform: scale(.92);
+}
 
-    #benvinguda {
-      display: none;
-    }
+@keyframes pulsar {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255,255,255,.5);
+  }
+  70% {
+    box-shadow: 0 0 0 18px rgba(255,255,255,0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255,255,255,0);
+  }
+}
 
-    .gran {
-      font-size: clamp(45px, 14vw, 90px);
-      font-weight: 900;
-      line-height: 0.9;
-      margin-bottom: 25px;
-    }
 
-    .emoji {
-      font-size: 70px;
-      margin: 15px 0;
-      animation: saltar 0.7s infinite alternate;
-    }
+/* -------------------------
+   BENVINGUDA
+------------------------- */
 
-    @keyframes saltar {
-      from {
-        transform: translateY(0) rotate(-5deg);
-      }
-      to {
-        transform: translateY(-18px) rotate(5deg);
-      }
-    }
+.gran {
+  font-size: clamp(50px, 15vw, 100px);
+  font-weight: 900;
+  line-height: .85;
+  margin-bottom: 20px;
+  animation: entrada 0.6s ease-out;
+}
 
-    .petit {
-      font-size: 16px;
-      opacity: 0.65;
-      margin-top: 35px;
-    }
+@keyframes entrada {
+  0% {
+    transform: scale(3) rotate(-8deg);
+    opacity: 0;
+  }
 
-    .confeti {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      display: none;
-      overflow: hidden;
-    }
+  70% {
+    transform: scale(.9) rotate(3deg);
+  }
 
-    .confeti span {
-      position: absolute;
-      top: -20px;
-      font-size: 25px;
-      animation: caure linear forwards;
-    }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
 
-    @keyframes caure {
-      to {
-        transform: translateY(110vh) rotate(720deg);
-      }
-    }
-  </style>
+
+/* -------------------------
+   ANIMACIÓ TIPUS GIF
+------------------------- */
+
+.gif-festa {
+  width: 190px;
+  height: 190px;
+  margin-bottom: 20px;
+  position: relative;
+  animation: gir 1.5s infinite linear;
+}
+
+.gif-festa .cara {
+  width: 150px;
+  height: 150px;
+  background: white;
+  color: black;
+  border-radius: 50%;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 65px;
+}
+
+.gif-festa .estrelles {
+  position: absolute;
+  inset: 0;
+  font-size: 30px;
+  animation: estrelles 0.7s infinite alternate;
+}
+
+@keyframes gir {
+  0% {
+    transform: rotate(-8deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(8deg) scale(1.08);
+  }
+
+  100% {
+    transform: rotate(-8deg) scale(1);
+  }
+}
+
+@keyframes estrelles {
+  from {
+    transform: scale(.8) rotate(0deg);
+  }
+
+  to {
+    transform: scale(1.2) rotate(20deg);
+  }
+}
+
+
+/* -------------------------
+   CONFETI
+------------------------- */
+
+#confeti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confeti {
+  position: absolute;
+  top: -40px;
+  font-size: 25px;
+  animation: caure linear forwards;
+}
+
+@keyframes caure {
+  to {
+    transform:
+      translateY(110vh)
+      rotate(720deg);
+  }
+}
+
+
+/* -------------------------
+   TEXT FINAL
+------------------------- */
+
+.final {
+  font-size: 22px;
+  line-height: 1.4;
+  margin-top: 10px;
+}
+
+.petit {
+  font-size: 15px;
+  opacity: .65;
+  margin-top: 30px;
+}
+
+</style>
 </head>
+
 
 <body>
 
-  <div id="entrada" class="pantalla">
 
-    <h1>FESTA<br>40</h1>
+<!-- =====================
+     PANTALLA INICIAL
+===================== -->
 
-    <p>Has trobat l'entrada secreta.</p>
+<div id="entrada" class="pantalla">
 
-    <div class="subtitol">
-      Ara només falta una cosa...
+  <h1>
+    FESTA<br>
+    40
+  </h1>
+
+  <div class="subtitol">
+    Has trobat l'entrada secreta.
+  </div>
+
+  <button onclick="entrar()">
+    🎟️ ENTRAR A LA FESTA
+  </button>
+
+  <div class="petit">
+    🔊 Puja el volum
+  </div>
+
+</div>
+
+
+
+<!-- =====================
+     PANTALLA BENVINGUDA
+===================== -->
+
+<div id="benvinguda" class="pantalla">
+
+  <div class="gif-festa">
+
+    <div class="cara">
+      🥳
     </div>
 
-    <button onclick="entrar()">
-      ENTRAR A LA FESTA
-    </button>
-
-    <div class="petit">
-      🔊 Posa el volum una mica alt
+    <div class="estrelles">
+      ✨　　　　　 ✨
+      <br><br>
+      💥　　　　　 💥
     </div>
 
   </div>
 
 
-  <div id="benvinguda" class="pantalla">
-
-    <div class="emoji">🎉</div>
-
-    <div class="gran">
-      BENVINGUT!
-    </div>
-
-    <h2>ARA SÍ.</h2>
-
-    <p>
-      Ja ets oficialment dins<br>
-      de la FESTA 40.
-    </p>
-
-    <p>
-      🕺💃🍻
-    </p>
-
-    <div class="petit">
-      Ensenya aquesta pantalla al Nord 😎
-    </div>
-
+  <div class="gran">
+    BENVINGUT!
   </div>
 
 
-  <div id="confeti" class="confeti"></div>
+  <div class="final">
+    🎉 Ja ets dins de la<br>
+    <strong>FESTA 40</strong>
+  </div>
 
 
-  <!--
-    Quan tinguem la música preparada,
-    descomenta aquesta línia i posa aquí
-    el nom del fitxer MP3:
-    
-    <audio id="musica" src="musica.mp3"></audio>
-  -->
+  <div class="petit">
+    Ensenya aquesta pantalla en Nord 😎
+  </div>
+
+</div>
 
 
-  <script>
+<!-- CONFETI -->
 
-    function entrar() {
-
-      // Amaguem la pantalla inicial
-      document.getElementById("entrada").style.display = "none";
-
-      // Mostrem la pantalla de benvinguda
-      document.getElementById("benvinguda").style.display = "flex";
-
-      // Activem el confeti
-      crearConfeti();
-
-      // Intentem reproduir la música
-      // Quan afegim l'MP3, activarem aquesta part.
-
-      /*
-      const musica = document.getElementById("musica");
-      musica.play();
-      */
-
-    }
+<div id="confeti"></div>
 
 
-    function crearConfeti() {
+<!-- =====================
+     MÚSICA
+===================== -->
 
-      const contenidor = document.getElementById("confeti");
+<audio id="musica" preload="auto">
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
 
-      contenidor.style.display = "block";
 
-      const simbols = ["🎉", "🎊", "🥳", "✨", "🔥", "💥"];
 
-      for (let i = 0; i < 45; i++) {
+<script>
 
-        const tros = document.createElement("span");
+function entrar() {
 
-        tros.innerHTML =
-          simbols[Math.floor(Math.random() * simbols.length)];
+  /* Canviar pantalla */
 
-        tros.style.left =
-          Math.random() * 100 + "%";
+  document.getElementById("entrada").style.display = "none";
 
-        tros.style.animationDuration =
-          (2 + Math.random() * 4) + "s";
+  document.getElementById("benvinguda").style.display = "flex";
 
-        tros.style.animationDelay =
-          Math.random() * 1.5 + "s";
 
-        contenidor.appendChild(tros);
-      }
-    }
+  /* Música */
 
-  </script>
+  const musica = document.getElementById("musica");
+
+  musica.volume = 1;
+
+  musica.currentTime = 0;
+
+  musica.play().catch(function(error) {
+    console.log("El navegador ha bloquejat la música:", error);
+  });
+
+
+  /* Confeti */
+
+  crearConfeti();
+
+}
+
+
+
+/* -------------------------
+   CREAR CONFETI
+------------------------- */
+
+function crearConfeti() {
+
+  const contenidor =
+    document.getElementById("confeti");
+
+  const simbols = [
+    "🎉",
+    "🎊",
+    "🥳",
+    "🔥",
+    "💥",
+    "✨",
+    "🕺",
+    "💃"
+  ];
+
+
+  for (let i = 0; i < 60; i++) {
+
+    const tros =
+      document.createElement("div");
+
+    tros.className = "confeti";
+
+    tros.innerHTML =
+      simbols[
+        Math.floor(
+          Math.random() * simbols.length
+        )
+      ];
+
+
+    tros.style.left =
+      Math.random() * 100 + "%";
+
+
+    tros.style.animationDuration =
+      (2 + Math.random() * 4) + "s";
+
+
+    tros.style.animationDelay =
+      Math.random() * 1.5 + "s";
+
+
+    contenidor.appendChild(tros);
+
+  }
+
+}
+
+</script>
+
 
 </body>
 </html>
