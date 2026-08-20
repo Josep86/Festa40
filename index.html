@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050608">
+<title>Control d'accés</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{background:#050608;color:#e9edf0;font-family:Arial,Helvetica,sans-serif}
+.screen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:22px}
+#verify{background:#050608}
+.panel{width:min(520px,100%);border:1px solid #283038;background:#0b0e11;box-shadow:0 25px 100px #000;overflow:hidden}
+.head{height:58px;border-bottom:1px solid #283038;padding:0 18px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-size:11px;letter-spacing:2.7px;font-weight:bold}.sys{font-size:9px;letter-spacing:1.5px;color:#77828a}
+.center{text-align:center;padding:50px 24px 46px}
+.ring{width:104px;height:104px;border:2px solid #35d07f;border-radius:50%;display:grid;place-items:center;margin:0 auto 30px;box-shadow:0 0 0 8px #35d07f08;animation:pop .55s ease-out}
+.check{font-size:62px;font-weight:300;color:#35d07f}
+.kicker{font-size:10px;letter-spacing:3px;color:#89949b;font-weight:bold;margin-bottom:12px}
+h1{font-size:31px;letter-spacing:1px;margin:0;font-weight:700}
+.desc{font-size:13px;color:#a9b2b8;margin:13px 0 28px}
+.meta{border-top:1px solid #283038;border-bottom:1px solid #283038;padding:13px 0;display:flex;justify-content:space-between;color:#737e86;font-size:10px;letter-spacing:1.5px}
+.meta b{color:#dce2e6}
+.foot{border-top:1px solid #283038;padding:12px;text-align:center;color:#4f5a62;font-size:8px;letter-spacing:1.4px}
+#welcome{display:none;background:#000;overflow:hidden}
+.wbg{position:absolute;inset:-20%;background:
+radial-gradient(circle at 50% 45%,#1b2730 0,#080b0e 35%,#000 65%);
+animation:bg 5s ease-in-out infinite alternate}
+.scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 5px,#fff 6px 7px);opacity:.025;pointer-events:none}
+.wcontent{position:relative;text-align:center;z-index:2;padding:20px}
+.wsmall{font-size:10px;letter-spacing:5px;color:#9da8ae;margin-bottom:22px}
+.wtitle{font-size:clamp(42px,12vw,78px);font-weight:900;letter-spacing:2px;line-height:.95;margin:0;text-shadow:0 0 35px #fff3}
+.wtitle span{display:block;font-size:.34em;letter-spacing:6px;margin-top:22px;color:#aeb7bc}
+.line{width:150px;height:2px;background:#e9edf0;margin:28px auto;box-shadow:0 0 20px #fff}
+#soundBtn{appearance:none;border:1px solid #727d84;background:#0b0e11;color:#edf1f3;padding:15px 25px;font-size:11px;letter-spacing:2px;font-weight:bold;margin-top:4px}
+.hint{font-size:9px;color:#69747b;letter-spacing:1px;margin-top:14px}
+.flash{position:absolute;inset:0;background:white;opacity:0;z-index:3;pointer-events:none}
+#done{display:none}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes bg{from{transform:scale(1)}to{transform:scale(1.1)}}
+@keyframes flash{0%{opacity:.85}100%{opacity:0}}
+</style>
+</head>
+<body>
+<section id="verify" class="screen">
+ <div class="panel">
+  <div class="head"><div class="brand">CONTROL D'ACCÉS</div><div class="sys">SISTEMA OPERATIU</div></div>
+  <div class="center">
+   <div class="ring"><div class="check">✓</div></div>
+   <div class="kicker">VERIFICACIÓ COMPLETADA</div>
+   <h1>ACCÉS AUTORITZAT</h1>
+   <div class="desc">El codi ha estat validat correctament.</div>
+   <div class="meta"><span>ESTAT</span><b>VÀLID</b></div>
+   <div class="meta"><span>HORA</span><b id="clock">--:--:--</b></div>
+  </div>
+  <div class="foot">CONTROL ELECTRÒNIC · ACCÉS CONFIRMAT</div>
+ </div>
+</section>
+
+<section id="welcome" class="screen">
+ <div class="wbg"></div><div class="scan"></div><div class="flash" id="flash"></div>
+ <div class="wcontent">
+   <div class="wsmall">VERIFICACIÓ FINALITZADA</div>
+   <div class="wtitle">BENVINGUT<span>A LA FESTA</span></div>
+   <div class="line"></div>
+   <button id="soundBtn">▶ ACTIVAR SO DE BENVINGUDA</button>
+   <div class="hint">PULSA PER ACTIVAR L'EFECTE</div>
+ </div>
+</section>
+
+<audio id="audio" preload="auto"></audio>
+
+<script>
+const verify=document.getElementById('verify'), welcome=document.getElementById('welcome');
+function clock(){
+ document.getElementById('clock').textContent=new Date().toLocaleTimeString('ca-ES',{hour12:false});
+}
+clock();setInterval(clock,1000);
+
+setTimeout(()=>{
+ verify.style.display='none'; welcome.style.display='flex';
+ document.getElementById('flash').style.animation='flash .7s ease-out';
+},1700);
+
+// Genera un petit efecte sonor directament al navegador; no cal cap fitxer extern.
+const AudioCtx=window.AudioContext||window.webkitAudioContext;
+function welcomeSound(){
+ if(!AudioCtx)return;
+ const c=new AudioCtx(), now=c.currentTime;
+ const notes=[261.63,329.63,392,523.25,659.25];
+ notes.forEach((f,i)=>{
+   const o=c.createOscillator(),g=c.createGain();
+   o.type='sine';o.frequency.value=f;
+   g.gain.setValueAtTime(0,now+i*.09);
+   g.gain.linearRampToValueAtTime(.09,now+i*.09+.025);
+   g.gain.exponentialRampToValueAtTime(.001,now+i*.09+.42);
+   o.connect(g).connect(c.destination);o.start(now+i*.09);o.stop(now+i*.09+.45);
+ });
+}
+document.getElementById('soundBtn').onclick=()=>{
+ welcomeSound();
+ document.getElementById('soundBtn').textContent='✓ BENVINGUDA ACTIVADA';
+ document.querySelector('.hint').textContent='ACCÉS CONFIRMAT';
+};
+</script>
+</body>
+</html>
