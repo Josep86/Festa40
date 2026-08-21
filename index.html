@@ -1,988 +1,146 @@
 <!DOCTYPE html>
 <html lang="ca">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FESTA 40</title>
+<title>40 + 40</title>
 
 <style>
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: #000;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
-}
-
-.pantalla {
-  min-height: 100vh;
-  width: 100%;
-  max-width: 650px;
-  margin: auto;
-  padding: 30px 25px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  text-align: center;
-}
-
-
-/* =================================================
-   PANTALLA INICIAL
-================================================= */
-
-#entrada {
-  display: flex;
-}
-
-h1 {
-  font-size: clamp(60px, 20vw, 120px);
-  line-height: .8;
-  margin: 0 0 30px;
-  font-weight: 900;
-  letter-spacing: -6px;
-}
-
-.subtitol {
-  font-size: 20px;
-  margin-bottom: 35px;
-}
-
-button {
-  border: 0;
-  background: white;
-  color: black;
-
-  font-size: 21px;
-  font-weight: 900;
-
-  padding: 19px 30px;
-  border-radius: 50px;
-
-  cursor: pointer;
-
-  box-shadow: 0 0 0 0 rgba(255,255,255,.5);
-
-  animation: pulsar 1.4s infinite;
-}
-
-button:active {
-  transform: scale(.92);
-}
-
-@keyframes pulsar {
-
-  0% {
-    box-shadow: 0 0 0 0 rgba(255,255,255,.5);
-  }
-
-  70% {
-    box-shadow: 0 0 0 18px rgba(255,255,255,0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(255,255,255,0);
-  }
-
-}
-
-
-/* =================================================
-   PANTALLA DE CONTROL
-================================================= */
-
-#control {
-  display: none;
-  justify-content: flex-start;
-  padding-top: 35px;
-}
-
-.titol-control {
-  font-size: 42px;
-  font-weight: 900;
-  margin-bottom: 8px;
-}
-
-.comptador {
-  font-size: 18px;
-  opacity: .7;
-  margin-bottom: 25px;
-}
-
-.llista {
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 12px;
-}
-
-.convidat {
-
-  width: 100%;
-
-  padding: 18px 20px;
-
-  border-radius: 18px;
-
-  background: #181818;
-  color: white;
-
-  border: 2px solid #333;
-
-  font-size: 20px;
-  font-weight: 700;
-
-  text-align: left;
-
-  cursor: pointer;
-
-  animation: none;
-
-  box-shadow: none;
-}
-
-.convidat:hover {
-  background: #252525;
-}
-
-.convidat.validat {
-
-  background: #173d22;
-
-  border-color: #35d66f;
-
-  color: #8cffae;
-
-  cursor: default;
-}
-
-.convidat.validat::after {
-  content: "  ✓ DINS";
-
-  font-size: 14px;
-}
-
-.boto-tornar {
-
-  margin-top: 25px;
-
-  background: #333;
-  color: white;
-
-  font-size: 16px;
-
-  padding: 14px 25px;
-
-  animation: none;
-}
-
-
-/* =================================================
-   PANTALLA BENVINGUDA
-================================================= */
-
-#benvinguda {
-  display: none;
-}
-
-
-/* Animació gran */
-
-.gran {
-
-  font-size: clamp(50px, 15vw, 100px);
-
-  font-weight: 900;
-
-  line-height: .85;
-
-  margin-bottom: 20px;
-
-  animation: entrada 0.6s ease-out;
-}
-
-
-/* Animació d'entrada */
-
-@keyframes entrada {
-
-  0% {
-
-    transform:
-      scale(3)
-      rotate(-8deg);
-
-    opacity: 0;
-  }
-
-  70% {
-
-    transform:
-      scale(.9)
-      rotate(3deg);
-
-  }
-
-  100% {
-
-    transform:
-      scale(1)
-      rotate(0);
-
-    opacity: 1;
-
-  }
-
-}
-
-
-/* =================================================
-   ANIMACIÓ FESTA
-================================================= */
-
-.gif-festa {
-
-  width: 190px;
-  height: 190px;
-
-  margin-bottom: 20px;
-
-  position: relative;
-
-  animation: gir 1.5s infinite linear;
-}
-
-.gif-festa .cara {
-
-  width: 150px;
-  height: 150px;
-
-  background: white;
-  color: black;
-
-  border-radius: 50%;
-
-  position: absolute;
-
-  left: 20px;
-  top: 20px;
-
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  font-size: 65px;
-}
-
-.gif-festa .estrelles {
-
-  position: absolute;
-
-  inset: 0;
-
-  font-size: 30px;
-
-  animation:
-    estrelles
-    0.7s
-    infinite
-    alternate;
-}
-
-
-@keyframes gir {
-
-  0% {
-
-    transform:
-      rotate(-8deg)
-      scale(1);
-
-  }
-
-  50% {
-
-    transform:
-      rotate(8deg)
-      scale(1.08);
-
-  }
-
-  100% {
-
-    transform:
-      rotate(-8deg)
-      scale(1);
-
-  }
-
-}
-
-
-@keyframes estrelles {
-
-  from {
-
-    transform:
-      scale(.8)
-      rotate(0deg);
-
-  }
-
-  to {
-
-    transform:
-      scale(1.2)
-      rotate(20deg);
-
-  }
-
-}
-
-
-/* =================================================
-   CONFETI
-================================================= */
-
-#confeti {
-
-  position: fixed;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  overflow: hidden;
-}
-
-.confeti {
-
-  position: absolute;
-
-  top: -40px;
-
-  font-size: 25px;
-
-  animation:
-    caure
-    linear
-    forwards;
-}
-
-@keyframes caure {
-
-  to {
-
-    transform:
-      translateY(110vh)
-      rotate(720deg);
-
-  }
-
-}
-
-
-/* =================================================
-   TEXT FINAL
-================================================= */
-
-.final {
-
-  font-size: 22px;
-
-  line-height: 1.4;
-
-  margin-top: 10px;
-}
-
-.petit {
-
-  font-size: 15px;
-
-  opacity: .65;
-
-  margin-top: 30px;
-}
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+        background:
+            linear-gradient(
+                rgba(0,0,0,0.28),
+                rgba(0,0,0,0.48)
+            ),
+            url("foto.jpg") center center / cover fixed;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+    }
+
+    .contenidor {
+        width: 100%;
+        max-width: 520px;
+        min-height: 100vh;
+        padding: 35px 20px 40px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .titol {
+        margin-top: 10px;
+        font-size: clamp(58px, 16vw, 92px);
+        font-weight: 900;
+        letter-spacing: -4px;
+        line-height: 0.9;
+
+        text-shadow:
+            0 4px 10px rgba(0,0,0,0.8),
+            0 0 25px rgba(0,0,0,0.5);
+    }
+
+    .subtitol {
+        margin-top: 15px;
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+
+        text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+    }
+
+    .qr-box {
+        background: white;
+        padding: 16px;
+        border-radius: 18px;
+
+        box-shadow:
+            0 8px 30px rgba(0,0,0,0.6);
+
+        margin: 30px 0 20px;
+    }
+
+    .qr {
+        display: block;
+        width: 270px;
+        max-width: 65vw;
+        height: auto;
+    }
+
+    .text-qr {
+        font-size: 15px;
+        font-weight: bold;
+        margin-top: 15px;
+
+        text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+    }
+
+    .peu {
+        font-size: 12px;
+        opacity: 0.85;
+        margin-top: 20px;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.9);
+    }
 
 </style>
-
 </head>
-
 
 <body>
 
+<div class="contenidor">
 
-<!-- =================================================
-     PANTALLA INICIAL
-================================================= -->
+    <div>
+        <div class="titol">
+            40 + 40
+        </div>
 
-<div
-  id="entrada"
-  class="pantalla"
->
-
-  <h1>
-    FESTA<br>
-    40
-  </h1>
-
-  <div class="subtitol">
-
-    Has trobat
-    l'entrada secreta.
-
-  </div>
-
-  <button
-    onclick="mostrarControl()"
-  >
-
-    🎟️ VALIDAR ENTRADA
-
-  </button>
-
-  <div class="petit">
-
-    🔊 Puja el volum
-
-  </div>
-
-</div>
-
-
-
-<!-- =================================================
-     CONTROL D'ENTRADES
-================================================= -->
-
-<div
-  id="control"
-  class="pantalla"
->
-
-  <div class="titol-control">
-
-    🎟️ ENTRADES
-
-  </div>
-
-  <div
-    class="comptador"
-    id="comptador"
-  >
-
-    0 entrades validades
-
-  </div>
-
-  <div
-    class="llista"
-    id="llista"
-  ></div>
-
-
-  <button
-    class="boto-tornar"
-    onclick="tornarInici()"
-  >
-
-    ← Tornar
-
-  </button>
-
-</div>
-
-
-
-<!-- =================================================
-     PANTALLA BENVINGUDA
-================================================= -->
-
-<div
-  id="benvinguda"
-  class="pantalla"
->
-
-
-  <!-- Animació -->
-
-  <div class="gif-festa">
-
-    <div class="cara">
-
-      🥳
-
+        <div class="subtitol">
+            Una festa molt especial
+        </div>
     </div>
 
-    <div class="estrelles">
 
-      ✨　　　　　 ✨
+    <div>
+        <div class="qr-box">
+            <img
+                src="qr_festa40.png"
+                alt="QR de l'entrada"
+                class="qr"
+            >
+        </div>
 
-      <br><br>
-
-      💥　　　　　 💥
-
+        <div class="text-qr">
+            ESCANEJA EL QR<br>
+            PER ACCEDIR A LA FESTA
+        </div>
     </div>
 
-  </div>
 
-
-
-  <!-- MISSATGE GENÈRIC
-       NO HI HA CAP NOM -->
-
-  <div class="gran">
-
-    BENVINGUT!
-
-  </div>
-
-
-  <div class="final">
-
-    🎉 Ja ets dins de la<br>
-
-    <strong>FESTA 40</strong>
-
-  </div>
-
-
-  <div class="petit">
-
-    Ensenya aquesta pantalla
-    en Nord 😎
-
-  </div>
-
+    <div class="peu">
+        🎉 Preparats per celebrar-ho?
+    </div>
 
 </div>
-
-
-
-<!-- =================================================
-     CONFETI
-================================================= -->
-
-<div id="confeti"></div>
-
-
-
-<!-- =================================================
-     MÚSICA
-================================================= -->
-
-<audio
-  id="musica"
-  preload="auto"
->
-
-  <source
-    src="musica.mp3"
-    type="audio/mpeg"
-  >
-
-</audio>
-
-
-
-<script>
-
-
-/* =================================================
-   LLISTA DE CONVIDATS
-
-   CANVIA AQUESTS NOMS
-   PELS NOMS REALS
-================================================= */
-
-const convidats = [
-
-  "Marc",
-  "Laia",
-  "Pol",
-  "Júlia",
-  "Pere",
-  "Anna",
-  "Joan",
-  "Maria",
-  "Carles",
-  "Laura"
-
-];
-
-
-
-/* =================================================
-   ENTRADES JA VALIDADES
-================================================= */
-
-let validades =
-  JSON.parse(
-    localStorage.getItem(
-      "entradesFesta40"
-    )
-  ) || [];
-
-
-
-/* =================================================
-   MOSTRAR CONTROL
-================================================= */
-
-function mostrarControl() {
-
-  document
-    .getElementById("entrada")
-    .style.display = "none";
-
-  document
-    .getElementById("control")
-    .style.display = "flex";
-
-  mostrarConvidats();
-
-}
-
-
-
-/* =================================================
-   MOSTRAR LLISTA
-================================================= */
-
-function mostrarConvidats() {
-
-  const llista =
-    document.getElementById(
-      "llista"
-    );
-
-  llista.innerHTML = "";
-
-
-  convidats.forEach(
-    function(nom) {
-
-      const boto =
-        document.createElement(
-          "button"
-        );
-
-
-      boto.className =
-        "convidat";
-
-
-      boto.innerText =
-        nom;
-
-
-      if (
-        validades.includes(nom)
-      ) {
-
-        boto.classList.add(
-          "validat"
-        );
-
-        boto.disabled = true;
-
-      }
-
-      else {
-
-        boto.onclick =
-          function() {
-
-            validarEntrada(nom);
-
-          };
-
-      }
-
-
-      llista.appendChild(
-        boto
-      );
-
-    }
-  );
-
-
-  actualitzarComptador();
-
-}
-
-
-
-/* =================================================
-   VALIDAR ENTRADA
-================================================= */
-
-function validarEntrada(nom) {
-
-  if (
-    validades.includes(nom)
-  ) {
-
-    return;
-
-  }
-
-
-  validades.push(nom);
-
-
-  localStorage.setItem(
-
-    "entradesFesta40",
-
-    JSON.stringify(
-      validades
-    )
-
-  );
-
-
-  mostrarBenvinguda();
-
-}
-
-
-
-/* =================================================
-   BENVINGUDA
-================================================= */
-
-function mostrarBenvinguda() {
-
-  document
-    .getElementById("control")
-    .style.display = "none";
-
-
-  document
-    .getElementById("benvinguda")
-    .style.display = "flex";
-
-
-
-  /* =================================================
-     MÚSICA
-  ================================================= */
-
-  const musica =
-    document.getElementById(
-      "musica"
-    );
-
-
-  musica.volume = 1;
-
-  musica.currentTime = 0;
-
-
-  musica.play().catch(
-    function(error) {
-
-      console.log(
-        "El navegador ha bloquejat la música:",
-        error
-      );
-
-    }
-  );
-
-
-
-  /* =================================================
-     CONFETI
-  ================================================= */
-
-  crearConfeti();
-
-
-
-  /* =================================================
-     TORNAR AUTOMÀTICAMENT
-     A LA LLISTA
-  ================================================= */
-
-  setTimeout(
-    function() {
-
-      document
-        .getElementById(
-          "benvinguda"
-        )
-        .style.display = "none";
-
-
-      document
-        .getElementById(
-          "control"
-        )
-        .style.display = "flex";
-
-
-      mostrarConvidats();
-
-    },
-    7000
-  );
-
-}
-
-
-
-/* =================================================
-   COMPTADOR
-================================================= */
-
-function actualitzarComptador() {
-
-  const total =
-    convidats.length;
-
-  const numero =
-    validades.length;
-
-
-  document
-    .getElementById(
-      "comptador"
-    )
-    .innerText =
-
-      numero +
-      " de " +
-      total +
-      " entrades validades";
-
-}
-
-
-
-/* =================================================
-   TORNAR
-================================================= */
-
-function tornarInici() {
-
-  document
-    .getElementById(
-      "control"
-    )
-    .style.display = "none";
-
-
-  document
-    .getElementById(
-      "entrada"
-    )
-    .style.display = "flex";
-
-}
-
-
-
-/* =================================================
-   CONFETI
-================================================= */
-
-function crearConfeti() {
-
-  const contenidor =
-    document.getElementById(
-      "confeti"
-    );
-
-
-  contenidor.innerHTML = "";
-
-
-  const simbols = [
-
-    "🎉",
-    "🎊",
-    "🥳",
-    "🔥",
-    "💥",
-    "✨",
-    "🕺",
-    "💃"
-
-  ];
-
-
-  for (
-    let i = 0;
-    i < 60;
-    i++
-  ) {
-
-    const tros =
-      document.createElement(
-        "div"
-      );
-
-
-    tros.className =
-      "confeti";
-
-
-    tros.innerHTML =
-      simbols[
-        Math.floor(
-          Math.random() *
-          simbols.length
-        )
-      ];
-
-
-    tros.style.left =
-      Math.random() *
-      100 +
-      "%";
-
-
-    tros.style.animationDuration =
-      (
-        2 +
-        Math.random() * 4
-      ) +
-      "s";
-
-
-    tros.style.animationDelay =
-      Math.random() * 1.5 +
-      "s";
-
-
-    contenidor.appendChild(
-      tros
-    );
-
-  }
-
-}
-
-</script>
-
 
 </body>
-
 </html>
