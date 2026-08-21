@@ -15,62 +15,63 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    min-height: 100%;
-}
-
-body {
-    min-height: 100vh;
     background: #000;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.contenidor {
-    width: 100%;
+body {
     min-height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    padding-bottom: 35px;
-}
-
-/* TÍTOL */
-.titol {
-    color: white;
-    font-size: clamp(60px, 17vw, 100px);
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: -5px;
-
-    padding: 25px 10px 20px;
-
-    text-align: center;
-
-    text-shadow:
-        0 4px 12px rgba(0,0,0,0.8);
 }
 
 /* FOTO */
-.foto {
+.foto-container {
+    position: relative;
     width: 100%;
     max-width: 700px;
-    display: block;
+    margin: 0 auto;
+}
 
-    object-fit: cover;
+.foto {
+    width: 100%;
+    display: block;
+}
+
+/* 40 + 40 */
+.titol {
+    position: absolute;
+
+    top: 8%;
+    left: 0;
+    width: 100%;
+
+    text-align: center;
+
+    color: #FFD900;
+
+    font-size: clamp(60px, 17vw, 100px);
+    font-weight: 900;
+
+    line-height: 1;
+    letter-spacing: -5px;
+
+    text-shadow:
+        0 4px 8px rgba(0,0,0,0.8),
+        0 0 15px rgba(0,0,0,0.45);
 }
 
 /* QR */
 .qr-box {
+    width: fit-content;
+
     background: white;
 
     padding: 15px;
-    margin-top: 25px;
+    margin: 25px auto 35px;
 
     border-radius: 16px;
 
     box-shadow:
-        0 5px 25px rgba(0,0,0,0.5);
+        0 5px 25px rgba(0,0,0,0.6);
 }
 
 .qr {
@@ -86,11 +87,7 @@ body {
 
 <body>
 
-<div class="contenidor">
-
-    <div class="titol">
-        40 + 40
-    </div>
+<div class="foto-container">
 
     <img
         src="foto.jpg"
@@ -98,13 +95,19 @@ body {
         class="foto"
     >
 
-    <div class="qr-box">
-        <img
-            src="qr_festa40.png"
-            alt="QR"
-            class="qr"
-        >
+    <div class="titol">
+        40 + 40
     </div>
+
+</div>
+
+<div class="qr-box">
+
+    <img
+        src="qr_festa40.png"
+        alt="QR"
+        class="qr"
+    >
 
 </div>
 
