@@ -7,100 +7,79 @@
 <title>40 + 40</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        min-height: 100%;
-        font-family: Arial, Helvetica, sans-serif;
-    }
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
 
-    body {
-        min-height: 100vh;
-        background:
-            linear-gradient(
-                rgba(0,0,0,0.28),
-                rgba(0,0,0,0.48)
-            ),
-            url("foto.jpg") center center / cover fixed;
-        
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        text-align: center;
-    }
+body {
+    min-height: 100vh;
+    background: #000;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-    .contenidor {
-        width: 100%;
-        max-width: 520px;
-        min-height: 100vh;
-        padding: 35px 20px 40px;
+.contenidor {
+    width: 100%;
+    min-height: 100vh;
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    .titol {
-        margin-top: 10px;
-        font-size: clamp(58px, 16vw, 92px);
-        font-weight: 900;
-        letter-spacing: -4px;
-        line-height: 0.9;
+    padding-bottom: 35px;
+}
 
-        text-shadow:
-            0 4px 10px rgba(0,0,0,0.8),
-            0 0 25px rgba(0,0,0,0.5);
-    }
+/* TÍTOL */
+.titol {
+    color: white;
+    font-size: clamp(60px, 17vw, 100px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -5px;
 
-    .subtitol {
-        margin-top: 15px;
-        font-size: 17px;
-        font-weight: 600;
-        letter-spacing: 3px;
-        text-transform: uppercase;
+    padding: 25px 10px 20px;
 
-        text-shadow: 0 2px 6px rgba(0,0,0,0.8);
-    }
+    text-align: center;
 
-    .qr-box {
-        background: white;
-        padding: 16px;
-        border-radius: 18px;
+    text-shadow:
+        0 4px 12px rgba(0,0,0,0.8);
+}
 
-        box-shadow:
-            0 8px 30px rgba(0,0,0,0.6);
+/* FOTO */
+.foto {
+    width: 100%;
+    max-width: 700px;
+    display: block;
 
-        margin: 30px 0 20px;
-    }
+    object-fit: cover;
+}
 
-    .qr {
-        display: block;
-        width: 270px;
-        max-width: 65vw;
-        height: auto;
-    }
+/* QR */
+.qr-box {
+    background: white;
 
-    .text-qr {
-        font-size: 15px;
-        font-weight: bold;
-        margin-top: 15px;
+    padding: 15px;
+    margin-top: 25px;
 
-        text-shadow: 0 2px 6px rgba(0,0,0,0.9);
-    }
+    border-radius: 16px;
 
-    .peu {
-        font-size: 12px;
-        opacity: 0.85;
-        margin-top: 20px;
-        text-shadow: 0 2px 5px rgba(0,0,0,0.9);
-    }
+    box-shadow:
+        0 5px 25px rgba(0,0,0,0.5);
+}
+
+.qr {
+    width: 280px;
+    max-width: 70vw;
+    height: auto;
+
+    display: block;
+}
 
 </style>
 </head>
@@ -109,35 +88,22 @@
 
 <div class="contenidor">
 
-    <div>
-        <div class="titol">
-            40 + 40
-        </div>
-
-        <div class="subtitol">
-            Una festa molt especial
-        </div>
+    <div class="titol">
+        40 + 40
     </div>
 
+    <img
+        src="foto.jpg"
+        alt=""
+        class="foto"
+    >
 
-    <div>
-        <div class="qr-box">
-            <img
-                src="qr_festa40.png"
-                alt="QR de l'entrada"
-                class="qr"
-            >
-        </div>
-
-        <div class="text-qr">
-            ESCANEJA EL QR<br>
-            PER ACCEDIR A LA FESTA
-        </div>
-    </div>
-
-
-    <div class="peu">
-        🎉 Preparats per celebrar-ho?
+    <div class="qr-box">
+        <img
+            src="qr_festa40.png"
+            alt="QR"
+            class="qr"
+        >
     </div>
 
 </div>
